@@ -1,9 +1,15 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React from "react"
+import Router from "./routes"
+import AuthProvider from "./context/auth"
 
-function App() {
-  return <div></div>;
+const App: React.FC = () => {
+  return (
+    <div>
+      <AuthProvider>
+        <Router />
+      </AuthProvider>
+    </div>
+  )
 }
 
-export default App;
+export default App
