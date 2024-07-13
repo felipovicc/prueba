@@ -1,23 +1,32 @@
 import { useState } from "react"
 
-export const useLocalStorage = () => {
-  const [value, setValue] = useState<string | null>(null)
+export const useLocalStorage = (key: string = "") => {
+  const [value, setvalue] = useState<object | string | null>()
 
-  const setItem = (key: string, value: string) => {
-    localStorage.setItem(key, value)
-    setValue(value)
-  }
-
-  const getItem = (key: string) => {
-    const value = localStorage.getItem(key)
-    setValue(value)
+  const set = (value: object) => {
+    localStorage.setItem(key, JSON.stringify(value))
+    setvalue(value)
     return value
   }
 
-  const removeItem = (key: string) => {
-    localStorage.removeItem(key)
-    setValue(null)
+  const get = () => {
+    try {
+      let value = localStorage.getItem(key) || ""
+      value = JSON.parse(value)
+      setvalue(value)
+      return value
+    } catch (e) {
+      console.error(e)
+      return null
+    }
   }
 
-  return { value, setItem, getItem, removeItem }
+  const remove = () => {
+    localStorage.removeItem(key)
+    setvalue(null)
+
+    return null
+  }
+
+  return { value, set, get, remove }
 }

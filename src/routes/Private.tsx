@@ -4,10 +4,10 @@ import { useAuth } from "../context/auth"
 
 const Private: React.FC = () => {
   const {
-    state: { user },
+    state: { loggedIn, user },
   } = useAuth()
 
-  if (!user.token) return <Navigate to="/login" />
+  if (!loggedIn || !user?.token) return <Navigate to="/login" />
   return <Outlet />
 }
 
