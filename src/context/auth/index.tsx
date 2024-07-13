@@ -1,6 +1,6 @@
-import React, { useReducer, useContext, createContext } from "react"
-import { AuthState, AuthContextInterface, ActionType } from "./types"
-import AuthReducer from "./reducer"
+import React, { useReducer, useContext, createContext } from 'react'
+import { AuthState, AuthContextInterface, ActionType } from './types'
+import AuthReducer from './reducer'
 
 const INITIAL_STATE: AuthState = { loggedIn: false, user: null }
 

@@ -4,8 +4,8 @@ export type AuthState = {
 }
 
 export enum ActionType {
-  LOGIN = "LOGIN",
-  LOGOUT = "LOGOUT",
+  LOGIN = 'LOGIN',
+  LOGOUT = 'LOGOUT',
 }
 
 export type AuthAction = {
