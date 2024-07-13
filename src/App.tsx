@@ -4,11 +4,9 @@ import { AuthProvider } from './context/auth'
 
 const App: React.FC = () => {
   return (
-    <div>
-      <AuthProvider>
-        <Router />
-      </AuthProvider>
-    </div>
+    <AuthProvider>
+      <Router />
+    </AuthProvider>
   )
 }
 

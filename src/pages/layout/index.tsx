@@ -1,11 +1,12 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 
-type Props = {
-  children?: React.ReactNode
-}
-
-const Layout: React.FC = ({ children }: Props) => {
-  return <div>{children}</div>
+const Layout: React.FC = () => {
+  return (
+    <div>
+      <Outlet />
+    </div>
+  )
 }
 
 export default Layout
