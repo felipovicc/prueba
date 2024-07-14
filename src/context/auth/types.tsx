@@ -1,6 +1,7 @@
 export type AuthState = {
   loggedIn: boolean
-  user?: UserType | undefined | null
+  user?: string | null
+  token?: string | null
 }
 
 export enum ActionType {
@@ -16,13 +17,4 @@ export type AuthAction = {
 export interface AuthContextInterface {
   state: AuthState
   dispatch: React.Dispatch<AuthAction>
-}
-
-export type UserType = {
-  id: number
-  token: string
-  name: string
-  year: number
-  color: string
-  pantone_value: string
 }

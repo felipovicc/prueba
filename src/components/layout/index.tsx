@@ -1,11 +1,18 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import Nav from './nav'
+import Content from './content'
+import Footer from './footer'
+import { Container, Grid } from '@mui/material'
 
 const Layout: React.FC = () => {
   return (
-    <div>
-      <Outlet />
-    </div>
+    <Container fixed>
+      <Grid container gap={2}>
+        <Nav />
+        <Content />
+        <Footer />
+      </Grid>
+    </Container>
   )
 }
 

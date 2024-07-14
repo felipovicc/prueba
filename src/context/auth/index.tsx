@@ -1,6 +1,7 @@
 import React, { useReducer, useContext, createContext } from 'react'
 import { AuthState, AuthContextInterface, ActionType, AuthAction } from './types'
 import AuthReducer from './reducer'
+import useLocalStorage from '../../hooks/useLocalStorage'
 
 export const INITIAL_STATE: AuthState = { loggedIn: false, user: null }
 
@@ -10,7 +11,11 @@ export const AuthContext = createContext<AuthContextInterface>({
 })
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE)
+  const { get } = useLocalStorage(process.env.REACT_APP_AUTH_KEY)
+  const storage = get()
+
+  const [state, dispatch] = useReducer(AuthReducer, storage || INITIAL_STATE)
+
   return <AuthContext.Provider value={{ state, dispatch }}>{children}</AuthContext.Provider>
 }
 

@@ -1,14 +1,13 @@
 import { INITIAL_STATE } from '.'
-import { useLocalStorage } from '../../hooks/useLocalStorage'
+import { setItem } from '../../hooks/useLocalStorage'
 import { AuthState, AuthAction, ActionType } from './types'
 
 const Reducer = (state: AuthState = INITIAL_STATE, action: AuthAction): AuthState => {
-  const authStorage = useLocalStorage(process.env.REACT_APP_AUTH_KEY)
-
   let newState = state
+
   switch (action.type) {
     case ActionType.LOGIN:
-      Object.assign(newState, action.payload)
+      newState = { ...newState, ...action.payload, loggedIn: true }
       break
 
     case ActionType.LOGOUT:
@@ -18,7 +17,7 @@ const Reducer = (state: AuthState = INITIAL_STATE, action: AuthAction): AuthStat
     default:
   }
 
-  return authStorage.set(newState) as AuthState
+  return setItem(process.env.REACT_APP_AUTH_KEY, newState) as AuthState
 }
 
 export default Reducer
