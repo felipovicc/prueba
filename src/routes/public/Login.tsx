@@ -64,7 +64,7 @@ const Login = () => {
         return addToast(error, 'error')
       }
       addToast(`Nice to see you come back ${form.email}!`, 'success')
-      login({ user: form.email, ...data })
+      login({ user: form.email, ...(data as object) })
       navigate('/')
     })
   }

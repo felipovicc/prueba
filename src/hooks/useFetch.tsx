@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 export enum STATUS {
   SUCCESS = 'success',
@@ -14,33 +14,41 @@ export enum METHOD {
   DELETE = 'DELETE',
 }
 
+// type DataType = {
+//   data?: Array<object>
+//   page?: number
+//   per_page?: number
+//   total?: number
+//   total_pages?: number
+//   support?: object
+// }
+
 type ResponseType = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data?: any
   status?: string
-  message?: null | string
-  data?: null | object
-  error?: null | string
+  message?: string
+  error?: string
   loading?: boolean
 }
 
-type Record = undefined | object | string | number | boolean
-
-type FetchParameters = {
-  body?: object | string
+export interface FetchParameters {
+  body?: object | null
   code?: number
-  search?: Record
-  headers?: Record
+  search?: object
+  headers?: object
   method?: METHOD
 }
 
 const INITIAL_RESPONSE: ResponseType = {
   status: STATUS.IDLE,
-  data: null,
-  message: null,
-  error: null,
+  data: undefined,
+  message: undefined,
+  error: undefined,
   loading: false,
 }
 
-export const addParamsToUrl = (url: string, params: Record): string => {
+export const addParamsToUrl = (url: string, params: object | undefined): string => {
   const urlObj = new URL(`${process.env.REACT_APP_API_URL}/${url}`)
 
   if (params) {
@@ -55,12 +63,14 @@ export const addParamsToUrl = (url: string, params: Record): string => {
 const useFetch = (url?: string, params: FetchParameters = {}) => {
   const [response, setResponse] = useState<ResponseType>(INITIAL_RESPONSE)
 
-  const fetch = (url: string, { method, body, search }: FetchParameters = {}): Promise<ResponseType> => {
+  const fetch = useCallback((url: string, params: FetchParameters): Promise<ResponseType> => {
+    const { method, body, search } = params
+
     setResponse({ ...response, status: STATUS.FETCHING, loading: true })
 
-    const options = {
-      method: method || body ? METHOD.POST : METHOD.GET,
-      headers: { 'Content-Type': 'application/json' },
+    const options: RequestInit = {
+      method: method || (body ? METHOD.POST : METHOD.GET),
+      headers: { 'Content-Type': 'application/json', ...(params.headers || {}) },
       body: body ? JSON.stringify(body) : null,
     }
 
@@ -73,33 +83,32 @@ const useFetch = (url?: string, params: FetchParameters = {}) => {
         const result = {
           ...response,
           status: STATUS.SUCCESS,
-          error: null,
+          error: undefined,
           loading: false,
           data,
-        }
+        } satisfies ResponseType
 
         setResponse(result)
         return result
       })
       .catch((e) => {
         console.error(e)
+
         const result = {
           ...response,
           status: STATUS.ERROR,
           error: e.message,
           loading: false,
-        }
+        } satisfies ResponseType
+
         setResponse(result)
         return result
       })
-  }
+  }, [])
 
   useEffect(() => {
     if (url && response.status === STATUS.IDLE) fetch(url, params)
-    return () => {
-      setResponse(INITIAL_RESPONSE)
-    }
-  }, [url])
+  }, [url, params])
 
   return { fetch, ...response }
 }
