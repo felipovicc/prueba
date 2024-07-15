@@ -99,7 +99,7 @@ const useFetch = (url?: string, params: FetchParameters = {}) => {
     return () => {
       setResponse(INITIAL_RESPONSE)
     }
-  }, [url, params])
+  }, [url])
 
   return { fetch, ...response }
 }

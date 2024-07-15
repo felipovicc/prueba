@@ -2,17 +2,15 @@ import React from 'react'
 import Nav from './nav'
 import Content from './content'
 import Footer from './footer'
-import { Container, Grid } from '@mui/material'
+import { Box } from '@mui/material'
 
 const Layout: React.FC = () => {
   return (
-    <Container fixed>
-      <Grid container gap={2}>
-        <Nav />
-        <Content />
-        <Footer />
-      </Grid>
-    </Container>
+    <Box display='flex' flexDirection='column' justifyContent='space-between' height='100vh'>
+      <Nav />
+      <Content />
+      <Footer />
+    </Box>
   )
 }
 

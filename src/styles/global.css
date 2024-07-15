@@ -1,2 +1,15 @@
-.nav-container {
+body,
+#root {
+  min-height: 100vh;
+  height: 100%;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
 }

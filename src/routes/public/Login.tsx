@@ -1,8 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { Email, Password, Visibility, VisibilityOff } from '@mui/icons-material'
-import { Button, Grid, IconButton, InputAdornment, TextField } from '@mui/material'
+import { Box, Button, IconButton, InputAdornment, TextField } from '@mui/material'
 import useFetch from '../../hooks/useFetch'
-// import { toast } from 'react-toastify'
 import { useAuth } from '../../context/auth'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { useToasts } from '../../context/toasts'
@@ -78,70 +77,72 @@ const Login = () => {
   if (state.loggedIn) return <Navigate to='/' />
 
   return (
-    <form onSubmit={handleSubmit} onReset={handleReset}>
-      <Grid container>
-        <TextField
-          inputRef={emailRef}
-          fullWidth
-          autoFocus
-          margin='normal'
-          variant='outlined'
-          label='Email'
-          id='email'
-          value={form.email}
-          onChange={handleChange}
-          error={!!errors.email}
-          helperText={errors.email}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position='end'>
-                <IconButton edge='start'>
-                  <Email />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-        <TextField
-          inputRef={passRef}
-          fullWidth
-          variant='outlined'
-          margin='normal'
-          label='Password'
-          type={showPassword ? 'text' : 'password'}
-          id='password'
-          autoComplete='password'
-          value={form.password}
-          onChange={handleChange}
-          error={!!errors.password}
-          helperText={errors.password}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position='end'>
-                <IconButton edge='start'>
-                  <Password />
-                </IconButton>
-              </InputAdornment>
-            ),
-            endAdornment: (
-              <InputAdornment position='end'>
-                <IconButton aria-label='toggle password visibility' onClick={handleClickShowPassword} edge='end'>
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-        <Grid>
-          <Button type='reset' variant='contained' sx={{ m: 1 }} disabled={loading}>
-            Clear
-          </Button>
-          <Button type='submit' variant='contained' sx={{ m: 1 }} disabled={loading}>
-            Log In
-          </Button>
-        </Grid>
-      </Grid>
-    </form>
+    <Box>
+      <form onSubmit={handleSubmit} onReset={handleReset}>
+        <Box display='flex' flexDirection='column' justifyContent='center' alignContent='center'>
+          <TextField
+            inputRef={emailRef}
+            fullWidth
+            autoFocus
+            margin='normal'
+            variant='outlined'
+            label='Email'
+            id='email'
+            value={form.email}
+            onChange={handleChange}
+            error={!!errors.email}
+            helperText={errors.email}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position='end'>
+                  <IconButton edge='start'>
+                    <Email />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            inputRef={passRef}
+            fullWidth
+            variant='outlined'
+            margin='normal'
+            label='Password'
+            type={showPassword ? 'text' : 'password'}
+            id='password'
+            autoComplete='password'
+            value={form.password}
+            onChange={handleChange}
+            error={!!errors.password}
+            helperText={errors.password}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position='end'>
+                  <IconButton edge='start'>
+                    <Password />
+                  </IconButton>
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position='end'>
+                  <IconButton aria-label='toggle password visibility' onClick={handleClickShowPassword} edge='end'>
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <Box display='flex' justifyContent='flex-end'>
+            <Button type='reset' variant='contained' sx={{ m: 1 }} disabled={loading}>
+              Clear
+            </Button>
+            <Button type='submit' variant='contained' sx={{ m: 1 }} disabled={loading}>
+              Log In
+            </Button>
+          </Box>
+        </Box>
+      </form>
+    </Box>
   )
 }
 
