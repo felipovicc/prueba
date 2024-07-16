@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Button, Drawer, Box, List, ListItemText, ListSubheader, ListItemButton, ListItemIcon } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import LogoutIcon from '@mui/icons-material/Logout'
-import { useAuth } from '../context/auth'
-import useViewport from '../hooks/useViewport'
+import { useAuth } from '../../context/auth'
+import useViewport from '../../hooks/useViewport'
 import { useNavigate } from 'react-router-dom'
 import GroupIcon from '@mui/icons-material/Group'
 import HomeIcon from '@mui/icons-material/Home'
@@ -35,7 +35,7 @@ const Menu = () => {
 
   return (
     <Box sx={{ marginLeft: 'auto' }}>
-      <Button variant='outlined' onClick={toggleDrawer()} hidden={viewport.isDesktop}>
+      <Button variant='outlined' onClick={toggleDrawer()} hidden={viewport.isDesktop} color='info'>
         <MenuIcon />
         <span hidden={!viewport.isDesktop}>Menu</span>
       </Button>

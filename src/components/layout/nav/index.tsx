@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Container } from '@mui/material'
-import User from '../../User'
-import Menu from '../../Menu'
+import User from '../../Users/User'
+import Menu from '../Menu'
 
 const Nav = () => {
   return (

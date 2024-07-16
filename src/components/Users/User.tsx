@@ -2,7 +2,7 @@ import React from 'react'
 import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import { useAuth } from '../context/auth'
+import { useAuth } from '../../context/auth'
 
 const User: React.FC = () => {
   const { state } = useAuth()
